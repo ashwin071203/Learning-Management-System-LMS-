@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - LMS{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>{{ course.title }}</h1>
+        <p class="lead">{{ course.description }}</p>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Course Content</h3>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Introduction</h5>
+                            <small>Video</small>
+                        </div>
+                        <p class="mb-1">Course overview and objectives</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Module 1</h5>
+                            <small>PDF</small>
+                        </div>
+                        <p class="mb-1">Basic concepts and fundamentals</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Quiz 1</h5>
+                            <small>Assessment</small>
+                        </div>
+                        <p class="mb-1">Test your knowledge</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3>Course Progress</h3>
+            </div>
+            <div class="card-body">
+                {% if current_user.is_authenticated %}
+                    {% set enrollment = course.enrollments|selectattr('user_id', 'equalto', current_user.id)|first %}
+                    {% if enrollment %}
+                        <div class="progress mb-3">
+                            <div class="progress-bar" role="progressbar" style="width: {{ enrollment.progress }}%">
+                                {{ enrollment.progress }}%
+                            </div>
+                        </div>
+                        {% if enrollment.completed %}
+                            <div class="alert alert-success">
+                                Course completed! <a href="#" class="alert-link">Download Certificate</a>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ url_for('enroll', course_id=course.id) }}" class="btn btn-primary btn-block">Enroll Now</a>
+                    {% endif %}
+                {% else %}
+                    <p>Please <a href="{{ url_for('login') }}">login</a> to track your progress.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Discussion Forum</h3>
+            </div>
+            <div class="card-body">
+                <p>Join the discussion with other students!</p>
+                <a href="#" class="btn btn-outline-primary">View Forum</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
