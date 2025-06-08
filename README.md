@@ -1,6 +1,6 @@
 # Learning Management System (LMS)
 
-A simple Learning Management System built with Flask that allows students and instructors to manage courses, track progress, and interact through a discussion forum.
+A simple Learning Management System that allows students and instructors to manage courses, track progress, and interact through a discussion forum.
 
 ## Features
 
