@@ -10,5 +10,5 @@ A simple Learning Management System that allows students and instructors to mana
 - Progress tracking
 - Discussion forum
 - Certificate generation
-- Email notifications
+
 
